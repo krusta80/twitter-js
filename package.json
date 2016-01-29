@@ -4,11 +4,14 @@
   "description": "John and Jason's Twitter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "morgan": "^1.6.1"
   }
 }
