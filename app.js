@@ -11,6 +11,7 @@ app.use('/hello',function (req, res, next) {
     // call `next`, or else your app will be a black hole — receiving requests but never properly responding
 
     console.log(req.method, req.url, res.statusCode);
+    console.log("Jason");
     next();
 })
 
