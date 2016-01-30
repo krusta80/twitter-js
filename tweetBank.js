@@ -3,7 +3,8 @@ var tweets = [];
 var tweetInc = 0;
 
 function add (name, text) {
-  tweets.push({ tweetID : (tweetInc++)+"", name: name, text: text });
+  tweets.unshift({ tweetID : tweetInc+"", name: name, text: text });
+  return tweetInc++;
 }
 
 function list () {

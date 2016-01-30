@@ -2,7 +2,9 @@ var express = require( 'express' );
 var morgan = require('morgan');
 var swig = require('swig');
 var app = express(); // creates an instance of an express application
-var routes = require('./routes/');	//	used index.js by default
+var bodyParser = require('body-parser');
+var routes = require('./routes/');	
+var socketio = require('socket.io');
 
 var port = 3000;
 var indexView = "";
@@ -16,6 +18,12 @@ var locals = {
     ]
 };
 
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
@@ -25,8 +33,10 @@ app.use(express.static('public'));
 
 app.use(morgan('combined'));
 
-app.use('/',routes);		//	route all requests to our routing module
-
-app.listen(port, function() {
+var server = app.listen(port, function() {
 	console.log("Twitter is running on port "+port);
 }); 
+
+var io = socketio.listen(server);
+
+app.use('/', urlencodedParser, routes(io));		//	route all requests to our routing module
