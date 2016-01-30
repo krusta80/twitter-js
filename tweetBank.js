@@ -17,8 +17,6 @@ module.exports = { add: add, list: list, find: find };
 
 
 
-//	some fake tweets for now...
-
 var randArrayEl = function(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
@@ -37,5 +35,3 @@ var getFakeTweet = function() {
 for (var i = 0; i < 10; i++) {
   module.exports.add( getFakeName(), getFakeTweet() );
 }
-
-console.log(find({'name':'Nimit Hashington'}));
