@@ -1,26 +1,25 @@
 var express = require( 'express' );
 var morgan = require('morgan');
 var swig = require('swig');
+var tweets = require('./tweetBank')
 var app = express(); // creates an instance of an express application
 
 var port = 3000;
 var indexView = "";
 
-
-var makeView = function() {
-	var locals = {
+var locals = {
     title: 'An Example',
     people: [
         { name: 'Gandalf'},
         { name: 'Frodo' },
         { name: 'Hermione'}
     ]
-	};
-	swig.renderFile(__dirname + '/views/index.html', locals, function (err, output) {
-	    indexView = output;
-	});
-}
+};
 
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+swig.setDefaults({ cache: false });
 
 app.use('/hello',function (req, res, next) {
     // do your logging here
@@ -33,11 +32,10 @@ app.use('/hello',function (req, res, next) {
 app.use(morgan('combined'));
 
 app.get('/', function (req, res) {
-	res.send(indexView);  
+	res.render('index',locals);  
 });
 
 
-makeView();
 app.listen(port, function() {
 	console.log("Twitter is running on port "+port);
-});
+}); 
