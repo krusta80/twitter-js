@@ -1,8 +1,9 @@
 var _ = require('lodash');
 var tweets = [];
+var tweetInc = 0;
 
 function add (name, text) {
-  tweets.push({ name: name, text: text });
+  tweets.push({ tweetID : (tweetInc++)+"", name: name, text: text });
 }
 
 function list () {

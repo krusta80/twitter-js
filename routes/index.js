@@ -3,14 +3,18 @@ var router = express.Router();
 // could use one line instead: var router = require('express').Router();
 var tweetBank = require('../tweetBank');
 
-router.get('../stylesheets/style.css', function (req, res) {
-  console.log(__dirname + '/stylesheets/style.css');
-  res.sendFile(__dirname + '/stylesheets/style.css');
-});
-
 router.get('/', function (req, res) {
   var tweets = tweetBank.list();
-  console.log(tweets);
+  res.render( 'index', { title: 'Twitter.js', tweets: tweets, showForm: true } );
+});
+
+router.get('/users/:name', function (req, res) {
+  var tweets = tweetBank.find({name : req.params.name});
+  res.render( 'index', { title: 'Twitter.js - Posts by ' + req.params.name, tweets: tweets } );
+});
+
+router.get('/tweets/:tweetID', function (req, res) {
+  var tweets = tweetBank.find({tweetID : req.params.tweetID});
   res.render( 'index', { title: 'Twitter.js', tweets: tweets } );
 });
 
