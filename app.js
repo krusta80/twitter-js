@@ -9,15 +9,6 @@ var socketio = require('socket.io');
 var port = 3000;
 var indexView = "";
 
-var locals = {
-    title: 'An Example',
-    people: [
-        { name: 'Gandalf'},
-        { name: 'Frodo' },
-        { name: 'Hermione'}
-    ]
-};
-
 // create application/json parser
 var jsonParser = bodyParser.json()
 
